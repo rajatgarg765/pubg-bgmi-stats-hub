@@ -1,3 +1,5 @@
+
+// src/pages/Events.tsx
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,7 @@ import { Search, Filter, Calendar, Trophy } from "lucide-react";
 import { apiService, Event, EventFilters } from "@/lib/api";
 import EventCard from "@/components/EventCard";
 
-const Events = () => {
+const EventsPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalEvents, setTotalEvents] = useState(0);
@@ -158,4 +160,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default EventsPage;

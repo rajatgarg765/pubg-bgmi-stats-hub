@@ -1,22 +1,14 @@
+
+// src/components/EventCard.tsx
 import { Calendar, MapPin, Trophy, Users } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Event } from "@/lib/api";
 
 interface EventCardProps {
-  event: {
-    id: string;
-    name: string;
-    organizer: string;
-    startDate: string;
-    endDate: string;
-    location: string;
-    prizePool: string;
-    game: "PUBG" | "BGMI";
-    status: "upcoming" | "ongoing" | "completed";
-    teams: number;
-    winner?: string;
-  };
+  event: Event;
 }
 
 const EventCard = ({ event }: EventCardProps) => {
@@ -66,7 +58,7 @@ const EventCard = ({ event }: EventCardProps) => {
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4">
+      <CardContent className="flex flex-col space-y-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar className="w-4 h-4" />
@@ -86,12 +78,14 @@ const EventCard = ({ event }: EventCardProps) => {
           </div>
         </div>
         
-        <Button 
-          className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
-          size="sm"
-        >
-          View Event
-        </Button>
+        <Link to={`/events/${event.id}`} className="block">
+          <Button 
+            className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
+            size="sm"
+          >
+            View Event
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );

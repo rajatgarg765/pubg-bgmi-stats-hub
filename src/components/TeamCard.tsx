@@ -1,8 +1,10 @@
+// src/components/TeamCard.tsx
 import { Users, Trophy, MapPin, Globe } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Team } from "@/lib/api";
+import { Link } from "react-router-dom";
 
 interface TeamCardProps {
   team: Team;
@@ -48,7 +50,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4">
+      <CardContent className="flex flex-col space-y-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Users className="w-4 h-4" />
@@ -60,12 +62,14 @@ const TeamCard = ({ team }: TeamCardProps) => {
           </div>
         </div>
         
-        <Button 
-          className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
-          size="sm"
-        >
-          View Team
-        </Button>
+        <Link to={`/teams/${team.id}`} className="block">
+          <Button 
+            className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
+            size="sm"
+          >
+            View Team
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
