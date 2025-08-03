@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Trophy, Target, Users } from "lucide-react";
 import { Player } from "@/lib/api";
+import { Link } from "react-router-dom";
 
 interface PlayerCardProps {
   player: Player;
@@ -38,7 +39,7 @@ const PlayerCard = ({ player, getTeamName }: PlayerCardProps) => {
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4">
+      <CardContent className="flex flex-col space-y-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Target className="w-4 h-4" />
@@ -58,12 +59,14 @@ const PlayerCard = ({ player, getTeamName }: PlayerCardProps) => {
           </div>
         </div>
         
-        <Button 
-          className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
-          size="sm"
-        >
-          View Profile
-        </Button>
+        <Link to={`/players/${player.id}`} className="block">
+          <Button 
+            className="w-full bg-gradient-gaming hover:opacity-90 transition-opacity"
+            size="sm"
+          >
+            View Profile
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
