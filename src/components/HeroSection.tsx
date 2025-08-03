@@ -1,8 +1,10 @@
+// src/components/HeroSection.tsx
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Trophy } from "lucide-react";
 import { apiService, Stats } from "@/lib/api";
 import heroImage from "@/assets/hero-esports.jpg";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -75,13 +77,15 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button 
-              size="lg" 
-              className="bg-gradient-gaming hover:opacity-90 transition-opacity shadow-glow-primary text-white px-8 py-3 text-lg"
-            >
-              Explore Tournaments
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/events">
+              <Button 
+                size="lg" 
+                className="bg-gradient-gaming hover:opacity-90 transition-opacity shadow-glow-primary text-white px-8 py-3 text-lg"
+              >
+                Explore Tournaments
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
             <Button 
               variant="outline" 
               size="lg"

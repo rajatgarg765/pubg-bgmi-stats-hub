@@ -1,9 +1,11 @@
+// src/components/FeaturedEvents.tsx
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Trophy } from "lucide-react";
 import { apiService, Event } from "@/lib/api";
 import EventCard from "./EventCard";
+import { Link } from "react-router-dom";
 
 const FeaturedEvents = () => {
   const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
@@ -142,10 +144,12 @@ const FeaturedEvents = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button size="lg" className="bg-gradient-gaming hover:opacity-90 transition-opacity">
-            View All Events
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link to="/events">
+            <Button size="lg" className="bg-gradient-gaming hover:opacity-90 transition-opacity">
+              View All Events
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
