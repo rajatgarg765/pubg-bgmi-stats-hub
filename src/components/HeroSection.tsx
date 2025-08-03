@@ -1,8 +1,33 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Trophy } from "lucide-react";
+import { apiService, Stats } from "@/lib/api";
 import heroImage from "@/assets/hero-esports.jpg";
 
 const HeroSection = () => {
+  const [stats, setStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const statsData = await apiService.getStats();
+        setStats(statsData);
+      } catch (error) {
+        console.error('Failed to fetch stats:', error);
+        // Fallback stats in case of API error
+        setStats({
+          totalTournaments: 250,
+          totalTeams: 1200,
+          totalPlayers: 5000,
+          ongoingEvents: 0,
+          completedEvents: 0,
+          upcomingEvents: 0,
+        });
+      }
+    };
+
+    fetchStats();
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -70,15 +95,21 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 pt-12 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-primary">250+</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary">
+                {stats?.totalTournaments || '---'}+
+              </div>
               <div className="text-sm text-muted-foreground">Tournaments</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-accent">1,200+</div>
+              <div className="text-2xl md:text-3xl font-bold text-accent">
+                {stats?.totalTeams || '---'}+
+              </div>
               <div className="text-sm text-muted-foreground">Teams</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-primary">5,000+</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary">
+                {stats?.totalPlayers || '---'}+
+              </div>
               <div className="text-sm text-muted-foreground">Players</div>
             </div>
           </div>

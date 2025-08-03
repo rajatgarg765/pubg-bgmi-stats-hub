@@ -1,49 +1,49 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Trophy } from "lucide-react";
+import { apiService, Event } from "@/lib/api";
 import EventCard from "./EventCard";
 
 const FeaturedEvents = () => {
-  // Mock data for featured events
-  const featuredEvents = [
-    {
-      id: "1",
-      name: "PUBG Mobile World Championship 2024",
-      organizer: "Krafton",
-      startDate: "2024-08-15",
-      endDate: "2024-08-25",
-      location: "Seoul, South Korea",
-      prizePool: "$3,000,000",
-      game: "PUBG" as const,
-      status: "upcoming" as const,
-      teams: 32,
-    },
-    {
-      id: "2", 
-      name: "BGMI Pro League Season 3",
-      organizer: "Krafton India",
-      startDate: "2024-07-01",
-      endDate: "2024-07-20",
-      location: "Mumbai, India",
-      prizePool: "₹1,50,00,000",
-      game: "BGMI" as const,
-      status: "completed" as const,
-      teams: 18,
-      winner: "Team SouL",
-    },
-    {
-      id: "3",
-      name: "PUBG Continental Series",
-      organizer: "Krafton",
-      startDate: "2024-08-01",
-      endDate: "2024-08-10",
-      location: "Online",
-      prizePool: "$2,000,000",
-      game: "PUBG" as const,
-      status: "ongoing" as const,
-      teams: 24,
-    },
-  ];
+  const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
+  const [recentWinners, setRecentWinners] = useState<any[]>([]);
+  const [liveEvents, setLiveEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [eventsData, winnersData, liveData] = await Promise.all([
+          apiService.getFeaturedEvents(),
+          apiService.getRecentWinners(),
+          apiService.getLiveEvents(),
+        ]);
+
+        setFeaturedEvents(eventsData);
+        setRecentWinners(winnersData);
+        setLiveEvents(liveData);
+      } catch (error) {
+        console.error('Failed to fetch featured events data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="text-lg text-muted-foreground">Loading events...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-background">
@@ -83,9 +83,15 @@ const FeaturedEvents = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold mb-1">Team SouL</div>
-              <div className="text-sm text-muted-foreground">BGMI Pro League S3 Champions</div>
-              <div className="text-accent font-medium mt-2">₹50,00,000 Prize</div>
+              {recentWinners[0] ? (
+                <>
+                  <div className="text-2xl font-bold mb-1">{recentWinners[0].winner}</div>
+                  <div className="text-sm text-muted-foreground">{recentWinners[0].eventName}</div>
+                  <div className="text-accent font-medium mt-2">{recentWinners[0].prizePool}</div>
+                </>
+              ) : (
+                <div className="text-sm text-muted-foreground">No recent winners</div>
+              )}
             </CardContent>
           </Card>
 
@@ -97,9 +103,19 @@ const FeaturedEvents = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold mb-1">PMWC 2024</div>
-              <div className="text-sm text-muted-foreground">Starting in 5 days</div>
-              <div className="text-accent font-medium mt-2">$3M Prize Pool</div>
+              {featuredEvents.find(e => e.status === 'upcoming') ? (
+                <>
+                  <div className="text-2xl font-bold mb-1">
+                    {featuredEvents.find(e => e.status === 'upcoming')?.name.split(' ')[0]}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Starting soon</div>
+                  <div className="text-accent font-medium mt-2">
+                    {featuredEvents.find(e => e.status === 'upcoming')?.prizePool}
+                  </div>
+                </>
+              ) : (
+                <div className="text-sm text-muted-foreground">No upcoming events</div>
+              )}
             </CardContent>
           </Card>
 
@@ -111,9 +127,15 @@ const FeaturedEvents = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold mb-1">PCS 2024</div>
-              <div className="text-sm text-muted-foreground">Day 3 - Finals</div>
-              <div className="text-accent font-medium mt-2">🔴 Live</div>
+              {liveEvents[0] ? (
+                <>
+                  <div className="text-2xl font-bold mb-1">{liveEvents[0].name.split(' ')[0]}</div>
+                  <div className="text-sm text-muted-foreground">{liveEvents[0].location}</div>
+                  <div className="text-accent font-medium mt-2">🔴 Live</div>
+                </>
+              ) : (
+                <div className="text-sm text-muted-foreground">No live events</div>
+              )}
             </CardContent>
           </Card>
         </div>
