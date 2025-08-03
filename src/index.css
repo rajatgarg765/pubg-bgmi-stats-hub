@@ -8,35 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Esports Gaming Theme - Light Mode */
+    --background: 245 12% 8%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 12% 12%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 12% 12%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Gaming Primary - Electric Blue */
+    --primary: 220 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 220 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Gaming Secondary - Purple */
+    --secondary: 260 60% 25%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 12% 18%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Gaming Accent - Victory Gold */
+    --accent: 45 100% 60%;
+    --accent-foreground: 240 12% 8%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Gaming UI Elements */
+    --border: 240 12% 22%;
+    --input: 240 12% 15%;
+    --ring: 220 100% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gaming Gradients */
+    --gradient-gaming: linear-gradient(135deg, hsl(220 100% 55%), hsl(260 60% 45%));
+    --gradient-victory: linear-gradient(135deg, hsl(45 100% 60%), hsl(35 100% 50%));
+    --gradient-card: linear-gradient(135deg, hsl(240 12% 12%), hsl(240 12% 15%));
+    
+    /* Gaming Effects */
+    --glow-primary: 0 0 20px hsl(220 100% 55% / 0.5);
+    --glow-accent: 0 0 20px hsl(45 100% 60% / 0.3);
+    --transition-gaming: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
